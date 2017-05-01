@@ -36,6 +36,7 @@ int main(void)
             printf("\tpopBack - взять с конца\n");
             printf("\tprint - просмотреть дек\n");
             printf("\tsort - сортировать дек\n");
+            printf("\tsize - размер дека\n");
             printf("\texit - выйти\n");
         } else if (!strcmp(str, "sort")) {
             deque_sort(d);

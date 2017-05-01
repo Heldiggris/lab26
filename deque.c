@@ -66,7 +66,6 @@ Item deque_popBack(Deque *d)
         d->size -= 1;
         return a;
     } else {
-        printf("Вышли за пределы\n");
         return;
     }
 }
@@ -88,7 +87,6 @@ Item deque_popFront(Deque *d)
         d->size -= 1;
         return a;
     } else {
-        printf("Вышли за пределы\n");
         return;
     }
 }
@@ -116,8 +114,12 @@ bool deque_empty(Deque *d)
 
 void deque_destroy(Deque *d)
 {
-    for(int i = 0; i < d->size; ++i) {
-        deque_popFront(d);
+    Deque_node *dq_node =  d->first;
+    Deque_node *dq_node_next;
+    while (dq_node) {
+        dq_node_next = dq_node->next;
+        free(dq_node);
+        dq_node = dq_node_next;
     }
     free(d);
 }
