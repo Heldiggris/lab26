@@ -57,6 +57,9 @@ Item deque_popBack(Deque *d)
         Deque_node *dq = d->last->prev;
         free(d->last);
         d->last = dq;
+        if (d->size == 1) {
+            d->first = NULL;
+        }
         if (dq) {
             dq->next = NULL;
         }
@@ -76,6 +79,9 @@ Item deque_popFront(Deque *d)
         Deque_node *dq = d->first->next;
         free(d->first);
         d->first = dq;
+        if (d->size == 1) {
+            d->last = NULL;
+        }
         if (dq) {
             dq->prev = NULL;
         }
@@ -128,22 +134,6 @@ void deque_sort(Deque *d)
     int size = deque_size(d);
     int a;
     int num = 0;
-    printf("%d\n", size);
-    if (size == 1) {
-        return;
-    } else if (size == 2){
-        int a = deque_popFront(d);
-        int b = deque_popFront(d);
-        if (a > b) {
-            deque_pushFront(d, a);
-            deque_pushFront(d, b);
-            return;
-        } else {
-            deque_pushFront(d, b);
-            deque_pushFront(d, a);
-            return;
-        }
-    }
 
     for (int i = 0; i < size; ++i) {
         a = deque_popFront(d);
