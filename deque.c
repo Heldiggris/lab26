@@ -3,17 +3,17 @@
 #include <stdbool.h>
 #include "deque.h"
 
-typedef struct _deque_node{
-    struct dq_node *prev;
-    struct dq_node *next;
-    int value;
-};
+typedef struct _deque_node {
+    struct _deque_node *prev;
+    struct _deque_node *next;
+    Item value;
+} Deque_node;
 
-typedef struct _deque{
+typedef struct _deque {
     Deque_node *first;
     Deque_node *last;
-    int size;
-};
+    size_t size;
+} Deque;
 
 
 Deque_node *deque_node_create(void)
@@ -66,7 +66,7 @@ Item deque_popBack(Deque *d)
         d->size -= 1;
         return a;
     } else {
-        return;
+        return 0;
     }
 }
 
@@ -87,7 +87,7 @@ Item deque_popFront(Deque *d)
         d->size -= 1;
         return a;
     } else {
-        return;
+        return 0;
     }
 }
 
@@ -124,18 +124,18 @@ void deque_destroy(Deque *d)
     free(d);
 }
 
-Item deque_size(Deque *d)
+size_t deque_size(Deque *d)
 {
     return d->size;
 }
 
 void deque_sort(Deque *d)
 {
-    int min = deque_popFront(d);
+    Item min = deque_popFront(d);
     deque_pushFront(d, min);
     int size = deque_size(d);
-    int a;
-    int num = 0;
+    Item a;
+    Item num = 0;
 
     for (int i = 0; i < size; ++i) {
         a = deque_popFront(d);
